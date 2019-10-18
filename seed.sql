@@ -1,0 +1,25 @@
+DROP DATABASE IF EXISTS blog;
+CREATE DATABASE blog;
+
+\c blog
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR (100) UNIQUE NOT NULL,
+  email VARCHAR (100) UNIQUE NOT NULL,
+  uid VARCHAR
+);
+
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  author INT REFERENCES users(id) NOT NULL,
+  title VARCHAR NOT NULL,
+  body TEXT NOT NULL
+);
+
+CREATE TABLE comments (
+  id SERIAL PRIMARY KEY,
+  author INT REFERENCES users(id) NOT NULL,
+  postId INT REFERENCES posts(id) NOT NULL,
+  body TEXT NOT NULL
+);
